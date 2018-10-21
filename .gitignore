@@ -1,0 +1,12 @@
+node_modules/
+log/
+.vscode/tags
+config/config.json
+*.js
+*.js.map
+**/*.js
+**/*.js.map
+**/*.map
+**/*.zip
+**/*.DS_Storea
+package-lock.json

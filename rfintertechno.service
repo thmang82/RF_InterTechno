@@ -1,0 +1,18 @@
+[Unit]
+Description=IntertechnoReceiver
+Documentation=https://github.com/thmang82/RF_InterTechno
+After=mosquitto.service
+
+[Service]
+Type=simple
+User=root
+Group=daemon
+WorkingDirectory=/home/pi/RF_InterTechno/
+ExecStart=/usr/bin/node /home/pi/RF_InterTechno/server
+StandardOutput=null
+StandardError=journal
+Environment=PYTHONUNBUFFERED=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

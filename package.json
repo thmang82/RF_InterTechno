@@ -1,0 +1,27 @@
+{
+  "name": "rf_intertechno",
+  "version": "0.1.0",
+  "description": "InterTechno Decoder - based on RFSwitch signal input",
+  "main": "server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "*",
+    "moment": "*",
+    "moment-timezone": "*",
+    "bunyan": "*",
+    "stack-trace": "*",
+    "mqtt": "^2.17.0",
+    "btoa": "*",
+    "fs-extra": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.0",
+    "typescript": "*"
+  },
+  "author": "Thomas Mangel",
+  "license": "MIT"
+}

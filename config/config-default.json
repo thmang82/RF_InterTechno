@@ -1,0 +1,12 @@
+{
+    "log_std_out": true,
+    "log_to_file": false,
+    "log_path": "/home/chip/RF_Intertechno/log/RfInterTechno.log",
+
+    "repeat_inside_ms": 330,
+    
+    "mqtt_url": "mqtt://localhost",
+    "mqtt_topic": "intertechno_event",
+    "conf_path_rfswitch": "/home/pi/RFSwitch/",
+    "conf_exec_rfswitch": "/home/pi/RFSwitch/RFSwitch"
+}
