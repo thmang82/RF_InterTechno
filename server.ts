@@ -19,6 +19,8 @@ import { ProcessType, ConsoleLine, ProcessState, ProccessRunState } from './src/
 import { sInterTechnoDecoder } from './src/InterTechnoDecoder';
 import { sPacketAnalyzer } from './src/packet_analyzer';
 import { logger } from './src/utils/logger';
+import { ProcessRunInstance } from './src/process/process_runner';
+import { help } from './src/utils/help_functions';
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -39,16 +41,34 @@ app.listen(port,"localhost", () => {
 });
 */
 
+let rf_switch_instance: ProcessRunInstance | null = null;
+let app_closing = false;
+
+process.on('SIGINT', async () => {
+  logger.log("Caught interrupt signal ..");
+  app_closing = true;
+  if (rf_switch_instance && rf_switch_instance.getState().running == ProccessRunState.RUNNING){
+    logger.log("Stop the RFSwitch instance ...");
+    rf_switch_instance.stop();
+  }
+  await help.sleepAwaitMs(200); // wait for kill
+  logger.log("Exit ...");
+  process.exit();
+});
+
 function processStateUpdated (state: ProcessState) {
   if (state.running == ProccessRunState.STOPPED || state.running == ProccessRunState.ERROR){
-    logger.log("RFSwitch Process stopped ... initiate restart ..");
-    setTimeout(startRfReceiver, 500);
+    logger.log("RFSwitch process stopped");
+    if (!app_closing){
+      logger.log("App was not closed, initiate RFSwitch restart ..");
+      setTimeout(startRfReceiver, 500);
+    }
   }
 }
 
 function startRfReceiver () {
   logger.log("Start RFSwitch ...");
-  sProcessRunner.startProcess(0, {
+  rf_switch_instance = sProcessRunner.startProcess(0, {
     app_cmd: conf.conf_exec_rfswitch,
     command: [],
     process_type: ProcessType.APPLICATON,

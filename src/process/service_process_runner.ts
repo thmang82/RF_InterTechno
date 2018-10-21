@@ -19,7 +19,7 @@ class ServiceProcessRunner {
         return rtn;
     }
 
-    public startProcess = (user_id: number, config: ProcessConfig) =>{
+    public startProcess = (user_id: number, config: ProcessConfig): ProcessRunInstance =>{
         let instance_id = this.randomString(10);
         while (this.process_instances[instance_id]){
             instance_id = this.randomString(10); // get a not used instance ID
@@ -27,7 +27,7 @@ class ServiceProcessRunner {
         let runner = new ProcessRunInstance(user_id, config, instance_id);
         this.process_instances[instance_id] = runner;
         runner.start();
-        return runner.getState(); // state will not be running here !!!
+        return runner; // state will not be running here !!!
     }
     public statusChanged = (state: ProcessState) => {
         // status changed

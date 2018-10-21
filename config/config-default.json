@@ -3,7 +3,7 @@
     "log_to_file": false,
     "log_path": "/home/chip/RF_Intertechno/log/RfInterTechno.log",
 
-    "repeat_inside_ms": 330,
+    "repeat_inside_ms": 600,
     
     "mqtt_url": "mqtt://localhost",
     "mqtt_topic": "intertechno_event",
